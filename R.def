@@ -1,0 +1,11 @@
+Bootstrap: docker
+From: r-base
+
+%environment
+    export LC_ALL=C
+    export R_LIBS_USER=""
+    export DEBIAN_FRONTEND="noninteractive"
+    export DEBCONF_NONINTERACTIVE_SEEN=true
+
+%runscript
+    R

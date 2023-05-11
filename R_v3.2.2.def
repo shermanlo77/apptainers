@@ -1,0 +1,35 @@
+Bootstrap: docker
+From: ubuntu:14.04.1
+
+%post
+    apt update
+    apt install -y wget
+    apt install -y make
+    apt install -y gcc
+    apt install -y g++
+    apt install -y gfortran
+    apt install -y default-jre
+    apt install -y default-jdk
+    cd /tmp
+    wget https://cran.r-project.org/src/base/R-3/R-3.2.2.tar.gz
+    tar -xf R-3.2.2.tar.gz
+    cd R-3.2.2
+    ./configure --with-readline=no --with-x=no
+    make
+    make install
+    cd /tmp
+    wget https://cran.r-project.org/src/contrib/Archive/glmnet/glmnet_2.0-2.tar.gz
+    wget https://cran.r-project.org/src/contrib/Archive/foreach/foreach_1.4.3.tar.gz
+    wget https://cran.r-project.org/src/contrib/Archive/iterators/iterators_1.0.8.tar.gz
+    R CMD INSTALL iterators_1.0.8.tar.gz
+    R CMD INSTALL foreach_1.4.3.tar.gz
+    R CMD INSTALL glmnet_2.0-2.tar.gz
+
+%environment
+    export LC_ALL=C
+    export R_LIBS_USER=""
+    export DEBIAN_FRONTEND="noninteractive"
+    export DEBCONF_NONINTERACTIVE_SEEN=true
+
+%runscript
+    R

@@ -1,0 +1,27 @@
+Bootstrap: docker
+From: r-base
+
+%post
+    apt update
+    apt install -y libcurl4-openssl-dev
+    apt install -y libssl-dev
+    apt install -y libssh2-1-dev
+    apt install -y libxml2-dev
+    apt install -y zlib1g-dev
+    apt install -y libfontconfig1-dev
+    apt install -y libharfbuzz-dev
+    apt install -y libfribidi-dev
+    apt install -y libfreetype6-dev
+    apt install -y libpng-dev
+    apt install -y libtiff5-dev
+    apt install -y libjpeg-dev
+    R -e "install.packages('devtools')"
+
+%environment
+    export LC_ALL=C
+    export R_LIBS_USER=""
+    export DEBIAN_FRONTEND="noninteractive"
+    export DEBCONF_NONINTERACTIVE_SEEN=true
+
+%runscript
+    R
